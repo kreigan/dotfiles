@@ -1,0 +1,48 @@
+{{- $pgcliConfig := get . "pgcli" | default dict -}}
+
+{{- if (get $pgcliConfig "main") -}}
+[main]
+{{ $pgcliConfig.main | toToml }}
+{{ end -}}
+
+{{- if (get $pgcliConfig "colors") -}}
+[colors]
+{{ $pgcliConfig.colors | toToml }}
+{{ end -}}
+
+{{- if (get $pgcliConfig "data_formats") -}}
+[data_formats]
+{{ $pgcliConfig.data_formats | toToml }}
+{{ end -}}
+
+#####################
+##  NAMED QUERIES  ##
+#####################
+
+[named queries]
+
+{{- $destDir := .chezmoi.destDir -}}
+{{- range glob (joinPath ".config" "pgcli" "named_queries" "*.sql") -}}
+{{- $queryName := trimSuffix ".sql" (base .) -}}
+{{- $queryPath := joinPath $destDir . }}
+
+####  {{ . }}  ####
+
+{{ $queryName }} = '''{{ include $queryPath -}}'''
+{{- end }}
+
+[alias_dsn]
+# use .pg_service.conf instead which is more universal and works with
+# psql, pgcli, and other PostgreSQL clients. Define service like this:
+#
+# [my_service]
+# host=localhost
+# user=my_user
+# dbname=my_db
+#
+# and use it like this:
+#   pgcli service=my_service
+# or the same way in psql:
+#   psql service=my_service
+#
+# More details here: https://www.postgresql.org/docs/13/libpq-pgservice.html

@@ -1,0 +1,71 @@
+{{- $gateways := includeTemplate "config/expandGateways.tmpl" . | fromYaml -}}
+{{- $tunnels := includeTemplate "config/expandTunnels.tmpl" . | fromYaml -}}
+{{- $endpoints := includeTemplate "config/expandEndpoints.tmpl" . | fromYaml -}}
+
+{{- $gatewayTunnels := dict -}}
+
+{{- range $endpointGroupName, $endpointGroup := $endpoints -}}
+  {{- range $endpointName, $endpoint := $endpointGroup -}}
+
+    {{- if not (get $endpoint "needTunnel" | default false) -}}
+      {{- continue -}}
+    {{- end -}}
+
+    {{- $tunnelGroupName := coalesce (dig "tunnelRef" "group" "" $endpoint) $endpointGroupName -}}
+    {{- $tunnelName := $endpoint.tunnelRef.name -}}
+    
+    {{- $tunnel := dig $tunnelGroupName $tunnelName "" $tunnels -}}
+    {{- if not $tunnel -}}
+      {{- fail (printf "tunnel not found for endpoint: %s/%s" $endpointGroupName $endpointName) -}}
+    {{- end -}}
+
+    {{- $gatewayName := $tunnel.gatewayRef -}}
+    {{- $gateway := get $gateways $gatewayName -}}
+    {{- if not $gateway -}}
+      {{- fail (printf "gateway not found for tunnel: %s/%s" $tunnelGroupName $tunnelName) -}}
+    {{- end -}}
+
+    {{- if not (hasKey $gatewayTunnels $gatewayName) -}}
+      {{- $_ := set $gatewayTunnels $gatewayName $gateway -}}
+    {{- end -}}
+
+    {{- $gatewayTunnel := list $tunnel.address $tunnel.port $endpoint.address $endpoint.port | join ":" -}}
+    {{- $tunnelList := dig $gatewayName "tunnels" list $gatewayTunnels -}}
+    {{- $_ := set $gateway "tunnels" (mustAppend $tunnelList $gatewayTunnel) -}}
+  {{- end -}}
+{{- end -}}
+
+---
+services: {{- if not $gatewayTunnels }} {} {{- end -}}
+
+{{- $tunnellerSettings := get . "tunneller" | default dict -}}
+{{- range $gatewayName, $gateway := $gatewayTunnels -}}
+
+  {{- $volumes := list -}}
+  {{- if eq $gateway.properties.auth_method "key" -}}
+    {{- $volumes = append $volumes (printf "%s:/home/appuser/.ssh/id" $gateway.properties.private_key) -}}
+  {{- else -}}
+    {{- $volumes = append $volumes "${SSH_AUTH_SOCK}:/home/appuser/.ssh/agent.sock" -}}
+  {{- end }}
+  {{- if (get $tunnellerSettings "local_timezone" | default true) -}}
+    {{- $volumes = append $volumes "/etc/localtime:/etc/localtime:ro" -}}
+  {{- end }}
+
+  {{ $gatewayName }}:
+    image: {{ get $tunnellerSettings "image" | default "ghcr.io/kreigan/tunneller:latest" }}
+    network_mode: "host"
+    restart: {{ get $tunnellerSettings "restart" | default "unless-stopped" }}
+    profiles: [{{ get $gateway "profiles" | default list | join ", " }}]
+    volumes:
+    {{- range $volume := $volumes }}
+      - {{ $volume }}
+    {{- end }}
+    environment:
+      SSH_HOST: {{ $gateway.address }}
+      SSH_USER: {{ $gateway.user }}
+      SSH_AUTH_METHOD: {{ $gateway.properties.auth_method }}
+      TUNNELS: |
+      {{- range $tunnel := $gateway.tunnels }}
+        {{ $tunnel }}
+      {{- end }}
+{{- end -}}

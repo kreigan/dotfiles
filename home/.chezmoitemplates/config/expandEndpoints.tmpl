@@ -1,0 +1,21 @@
+{{- $data := dict "type" "endpoints" "collection" (get . "endpoints" | default dict) -}}
+{{- $items := includeTemplate "config/_expand.tmpl" $data | fromYaml -}}
+
+{{- range $groupName, $group := $items -}}
+  {{- range $itemName, $item := $group -}}
+    {{- $requiredFields := list "address" "port" -}}
+    {{- range $requiredFields -}}
+      {{- if empty (get $item .) -}}
+        {{- fail (printf "Endpoint must have a '%s': %s/%s" . $groupName $itemName) -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- if get $item "needTunnel" | default false -}}
+      {{- if empty (dig "tunnelRef" "name" "" $item) -}}
+        {{- fail (printf "Endpoint with 'needTunnel' requires a 'tunnelRef.name': %s/%s" $groupName $itemName) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $items | toYaml -}}

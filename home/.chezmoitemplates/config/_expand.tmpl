@@ -1,0 +1,32 @@
+{{- $result := dict -}}
+
+{{- $type := .type -}}
+{{- $default := get .collection "default" | default dict -}}
+
+{{- if eq .type "gateways" -}}
+  {{- range $itemName, $item := omit .collection "default" -}}
+    {{- if hasKey $result $itemName -}}
+      {{- fail (printf "Duplicate gateway name: '%s'" $itemName) -}}
+    {{- end -}}
+    {{- $_ := set $result $itemName (mustMergeOverwrite dict $default $item) -}}
+  {{- end -}}
+{{- else -}}
+  {{- $typeDefaults := get $default "all" | default dict -}}
+  {{- range $groupName, $group := omit .collection "default" -}}
+    {{- if hasKey $result $groupName -}}
+      {{- fail (printf "Duplicate group name in %s: '%s'" $type $groupName) -}}
+    {{- end -}}
+    {{- $_ := set $result $groupName dict -}}
+    {{- $groupDefaults := get $group "default" | default dict -}}
+    {{- range $itemName, $item := omit $group "default" -}}
+      {{- if hasKey (get $result $groupName) $itemName -}}
+        {{- fail (printf "Duplicate item name in %s: %s/%s" $type $groupName $itemName) -}}
+      {{- end -}}
+      {{- $itemDefaults := get $default $itemName | default dict -}}
+      {{- $merged := mustMergeOverwrite dict $typeDefaults $itemDefaults $groupDefaults $item -}}
+      {{- $_ := $result | setValueAtPath (printf "%s.%s" $groupName $itemName) $merged -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $result | toYaml -}}

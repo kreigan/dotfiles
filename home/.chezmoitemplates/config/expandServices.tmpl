@@ -1,0 +1,19 @@
+{{- $data := dict "type" "services" "collection" (get . "services" | default dict) -}}
+{{- $items := includeTemplate "config/_expand.tmpl" $data | fromYaml -}}
+
+{{- range $groupName, $group := $items -}}
+  {{- range $itemName, $item := $group -}}
+    {{- $requiredFields := list "endpointRef" -}}
+    {{- range $requiredFields -}}
+      {{- if empty (get $item .) -}}
+        {{- fail (printf "Service must have a '%s': %s/%s" . $groupName $itemName) -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- if empty (get $item.endpointRef "name") -}}
+      {{- fail (printf "Service must have an 'endpointRef.name': %s/%s" $groupName $itemName) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $items | toYaml -}}

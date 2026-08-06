@@ -1,0 +1,15 @@
+{{- $data := dict "type" "tunnels" "collection" (get . "tunnels" | default dict) -}}
+{{- $items := includeTemplate "config/_expand.tmpl" $data | fromYaml -}}
+
+{{- range $groupName, $group := $items -}}
+  {{- range $itemName, $item := $group -}}
+    {{- $requiredFields := list "address" "port" "gatewayRef" -}}
+    {{- range $requiredFields -}}
+      {{- if empty (get $item .) -}}
+        {{- fail (printf "Tunnel must have a '%s': %s/%s" . $groupName $itemName) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $items | toYaml -}}

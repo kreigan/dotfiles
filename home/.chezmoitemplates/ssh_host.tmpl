@@ -1,0 +1,11 @@
+{{ if kindIs "string" . }}
+  HostName {{ . }}
+{{ else }}
+  HostName {{ .address }}
+{{- if hasKey . "user" }}
+  User {{ .user }}
+{{ end }}
+{{- if hasKey . "options" }}
+  {{- indent 2 .options }}
+{{- end }}
+{{- end }}
