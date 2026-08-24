@@ -2,7 +2,7 @@
 {{- $items := includeTemplate "config/_expand.tmpl" $data | fromYaml -}}
 
 {{- range $itemName, $item := $items -}}
-  {{- $requiredFields := list "address" -}}
+  {{- $requiredFields := list "user" "address" -}}
   {{- range $requiredFields -}}
     {{- if empty (get $item .) -}}
       {{- fail (printf "Gateway must have a '%s': %s" . $itemName) -}}
