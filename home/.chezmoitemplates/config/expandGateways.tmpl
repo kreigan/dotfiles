@@ -8,16 +8,6 @@
       {{- fail (printf "Gateway must have a '%s': %s" . $itemName) -}}
     {{- end -}}
   {{- end -}}
-
-  {{- $validAuthMethods := list "agent" "key" -}}
-  {{- $authMethod := $item.properties.auth_method -}}
-  {{- if empty (dig "properties" "auth_method" "" $item) -}}
-    {{- fail (printf "Gateway must have a 'properties.auth_method': %s" $itemName) -}}
-  {{- else if (and (eq $authMethod "key") (empty (dig "properties" "private_key" "" $item))) -}}
-      {{- fail (printf "Gateway with auth_method = \"key\" requires 'properties.private_key': %s" $itemName) -}}
-  {{- else if not (has $authMethod $validAuthMethods) -}}
-    {{- fail (printf "'properties.auth_method' must be on of %s but %s was given: %s" ($validAuthMethods | join "|" | quote) ($authMethod | quote) $itemName) -}}
-  {{- end -}}
 {{- end -}}
 
 {{- $items | toYaml -}}

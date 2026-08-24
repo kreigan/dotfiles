@@ -19,10 +19,24 @@
       {{- fail (printf "tunnel not found for endpoint: %s/%s" $endpointGroupName $endpointName) -}}
     {{- end -}}
 
-    {{- $gatewayName := $tunnel.gatewayRef -}}
+    {{- $gatewayName := get $tunnel "gatewayRef" -}}
+    {{- if not $gatewayName -}}
+      {{- fail (printf "tunnel must have a 'gatewayRef': %s/%s" $tunnelGroupName $tunnelName) -}}
+    {{- end -}}
+
     {{- $gateway := get $gateways $gatewayName -}}
     {{- if not $gateway -}}
       {{- fail (printf "gateway not found for tunnel: %s/%s" $tunnelGroupName $tunnelName) -}}
+    {{- end -}}
+
+    {{- $validAuthMethods := list "agent" "key" -}}
+    {{- $authMethod := $gateway.properties.auth_method -}}
+    {{- if empty (dig "properties" "auth_method" "" $gateway) -}}
+      {{- fail (printf "Gateway must have a 'properties.auth_method': %s" $gatewayName) -}}
+    {{- else if (and (eq $authMethod "key") (empty (dig "properties" "private_key" "" $gateway))) -}}
+        {{- fail (printf "Gateway with auth_method = \"key\" requires 'properties.private_key': %s" $gatewayName) -}}
+    {{- else if not (has $authMethod $validAuthMethods) -}}
+      {{- fail (printf "'properties.auth_method' must be on of %s but %s was given: %s" ($validAuthMethods | join "|" | quote) ($authMethod | quote) $gatewayName) -}}
     {{- end -}}
 
     {{- if not (hasKey $gatewayTunnels $gatewayName) -}}
