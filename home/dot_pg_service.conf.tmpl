@@ -4,6 +4,9 @@
 
 {{- range $serviceGroupName, $serviceGroup := $services -}}
   {{- range $serviceName, $service := $serviceGroup -}}
+    {{- if ne $service.type "db:postgresql" -}}
+      {{- continue -}}
+    {{- end -}}
 
     {{- $pgServiceName := printf "%s_%s" $serviceGroupName $serviceName -}}
     {{- if eq $serviceGroupName "ungrouped" -}}

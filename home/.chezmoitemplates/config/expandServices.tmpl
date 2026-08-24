@@ -3,7 +3,7 @@
 
 {{- range $groupName, $group := $items -}}
   {{- range $itemName, $item := $group -}}
-    {{- $requiredFields := list "endpointRef" -}}
+    {{- $requiredFields := list "endpointRef" "type" -}}
     {{- range $requiredFields -}}
       {{- if empty (get $item .) -}}
         {{- fail (printf "Service must have a '%s': %s/%s" . $groupName $itemName) -}}
