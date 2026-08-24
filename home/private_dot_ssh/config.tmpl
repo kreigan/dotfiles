@@ -6,31 +6,48 @@
 # e.g. ~/.ssh/config.d/myconfig.conf
 Include config.d/*
 
-{{ if hasKey .ssh "hosts" -}}
-{{- range $host, $hostData := .ssh.hosts -}}
-Host {{ $host }}
-{{- template "ssh_host.tmpl" $hostData }}
-{{ end -}}
-{{ end -}}
+{{- $ssh := get . "ssh" | default dict | pruneEmptyDicts -}}
 
-{{ if hasKey .ssh "groups" }}
-{{- range $groupName, $group := .ssh.groups -}}
+{{- range get $ssh "hosts" | default dict | keys | uniq | sortAlpha -}}
+  {{- $host := get $ssh.hosts . -}}
+  {{- if not $host -}}
+    {{- continue -}}
+  {{- end }}
+
+Host {{ . }}
+  {{- range keys $host | sortAlpha }}
+  {{ . }} = {{ get $host . }} 
+  {{- end -}}
+{{- end -}}
+
+{{- range get $ssh "groups" | default dict | keys | uniq | sortAlpha -}}
+  {{- $groupName := . -}}
+  {{- $group := get $ssh.groups $groupName -}}
+
+  {{- if not (get $group "hosts") -}}
+    {{- continue -}}
+  {{- end }}
 
 {{ repeat ((len $groupName | add 15) | int) "#" }}
 ##  GROUP: {{ $groupName | upper }}  ##
 {{ repeat ((len $groupName | add 15) | int) "#" }}
 
-{{ with $group -}}
-Host {{ $groupName }}_*
-  User {{ .user }}
-{{- if .options }}
-{{ indent 2 .options }}
-{{- end -}}
+  {{- range keys $group.hosts | sortAlpha -}}
+    {{- $hostName := . -}}
+    {{- $host := get $group.hosts $hostName }}
 
-{{ range $host, $hostData := .hosts }}
-Host {{ $groupName }}_{{ $host }}
-{{- template "ssh_host.tmpl" $hostData }}
-{{- end }}
-{{ end -}}
-{{- end -}}
+Host {{ $groupName -}}_{{ . }}
+    {{- range keys $host | sortAlpha }}
+  {{ . }} = {{ get $host . }} 
+    {{- end -}}
+  {{- end -}}
+
+{{- if get $group "options" }}
+
+Host {{ $groupName -}}_*
+    {{- range keys $group.options | sortAlpha }}
+  {{ . }} = {{ get $group.options . }} 
+    {{- end }}
+
+  {{- end -}}
 {{- end -}}
