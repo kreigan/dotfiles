@@ -1,0 +1,14 @@
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+
+# Unlimited history size
+HISTSIZE=$((0x7FFF7FFF))
+
+# Ignore common service commands
+HISTORY_IGNORE={{ join "|" (.shell.history.ignore) | quote }}
+
+setopt HIST_IGNORE_SPACE    # Ignore commands starting with a space
+setopt HIST_IGNORE_DUPS     # Don't record immediate duplicates
+setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks before recording
+setopt HIST_VERIFY          # Verify history expansion before execution
+setopt SHARE_HISTORY        # Synchronize history between parallel terminals
+setopt EXTENDED_HISTORY     # Record timestamp and duration for each history entry

@@ -1,0 +1,32 @@
+[shell]
+history.ignore = [
+  "ls",
+  "ls -*",
+  "ll",
+  "cd -",
+  "pwd",
+  "exit",
+  "date",
+  "clear",
+  "history*",
+  "id",
+  "sudo su",
+  "sudo su -",
+  "bg",
+  "fg"
+]
+
+[shell.aliases]
+ll = "ls -alF"
+".." = "cd .."
+"..." = "cd ../.."
+mv = "mv -iv"
+mkdir = "mkdir -pv"
+grep = "grep --color=auto"
+utc = "TZ=UTC date --iso-8601=seconds -d"
+
+[shell.bash]
+history.time_format = "%Y-%m-%d %T"
+
+[shell.zsh]
+pacman_cache = "/var/cache/zsh/pacman"

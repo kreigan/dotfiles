@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "**/dot_config/rc.d/**": "shellscript",
+    "*.toml.tmpl": "toml"
+  }
+}

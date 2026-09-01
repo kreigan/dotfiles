@@ -1,0 +1,25 @@
+# Unlimited history size
+HISTSIZE=$((0x7FFF7FFF))
+HISTFILESIZE=$((0x7FFF7FFF))
+
+# Ignore leading space commands and immediate duplicated
+HISTCONTROL=ignoreboth
+
+# Time format for history entries
+HISTTIMEFORMAT="{{ .shell.bash.history.time_format }} "
+
+# Ignore common service commands
+HISTIGNORE={{ join ":" (.shell.history.ignore) | quote }}
+
+# Synchronize history between parallel terminals
+if [[ -n ${PROMPT_COMMAND-} ]]; then
+  PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+else
+  PROMPT_COMMAND='history -a; history -n'
+fi
+
+shopt -s histappend   # Append to the history file on exit instead of overwriting
+shopt -s cmdhist      # Save multi-line commands as one command
+shopt -s histreedit   # Re-edit the command line for failing history expansions
+shopt -s histverify   # Re-edit the result of history expansions
+shopt -s lithist      # save history with newlines instead of ; where possible

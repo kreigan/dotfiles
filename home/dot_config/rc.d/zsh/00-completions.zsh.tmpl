@@ -1,0 +1,41 @@
+fpath=(~/.local/share/zsh/site-functions $fpath)
+
+autoload -Uz compinit
+compinit
+
+# Pacman will refresh completions using hook, need to rehash completion cache
+# https://wiki.archlinux.org/title/Zsh#Persistent_rehash
+zshcache_time="$(date +%s%N)"
+
+autoload -Uz add-zsh-hook
+
+rehash_precmd() {
+  if [[ -e "{{ .shell.zsh.pacman_cache }}" ]]; then
+    local paccache_time="$(date -r "{{ .shell.zsh.pacman_cache }}" +%s%N)"
+    if (( zshcache_time < paccache_time )); then
+      rehash
+      zshcache_time="$paccache_time"
+    fi
+  fi
+}
+
+add-zsh-hook -Uz precmd rehash_precmd
+
+# Fish-like syntax highlighting and autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Make completion case-insensitive
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Use arrow keys to select completion
+zstyle ':completion:*' menu select
+
+# Highlight the common part when focused on a completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# Show descriptions in brackets
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# Use menu completion after the second consecutive TAB
+setopt AUTO_MENU
