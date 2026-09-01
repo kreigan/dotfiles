@@ -15,6 +15,20 @@ history.ignore = [
   "bg",
   "fg"
 ]
+less_options = [
+  "--autosave=/",
+	"--chop-long-lines",
+	"--clear-screen",
+	"--ignore-case",
+	"--jump-target=10",
+	"--LONG-PROMPT",
+	"--RAW-CONTROL-CHARS",
+	"--shift=5",
+	"--status-column",
+	"--tabs=2",
+	"--tilde",
+  "--use-color",
+]
 
 [shell.aliases]
 ll = "ls -alF"

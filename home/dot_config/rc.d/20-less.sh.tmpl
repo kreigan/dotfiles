@@ -1,0 +1,12 @@
+export LESS="\{{ .shell.less_options | join " \\\n" | nindent 2 }}"
+
+export LESSHISTSIZE=1000
+
+export LESS_TERMCAP_md=$'\e[01;34m'              # Turn on bold mode.
+export LESS_TERMCAP_me=$'\e[0m'                  # Turn off all attributes.
+export LESS_TERMCAP_mh=$'\e[2m'                  # Turn on dim mode.
+export LESS_TERMCAP_mr=$'\e[7m'                  # Turn on reverse mode.
+export LESS_TERMCAP_se=$'\e[27;0m'               # Exit standout mode.
+export LESS_TERMCAP_so=$'\e[1;33m'               # Begin standout mode.
+export LESS_TERMCAP_ue=$'\e[24;0m'               # Exit underline mode.
+export LESS_TERMCAP_us=$'\e[4;1;38;5;250m'       # Begin underline mode.
