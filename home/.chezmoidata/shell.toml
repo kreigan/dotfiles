@@ -1,5 +1,5 @@
 [shell]
-pager = "less"
+pager = "moor"
 editor = "vim"
 history.ignore = [
   "ls",
