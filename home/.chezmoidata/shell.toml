@@ -1,4 +1,6 @@
 [shell]
+pager = "less"
+editor = "vim"
 history.ignore = [
   "ls",
   "ls -*",

@@ -1,0 +1,2 @@
+export PAGER={{ lookPath .shell.pager | empty | ternary .shell.pager "less" | quote }}
+export EDITOR={{ lookPath .shell.editor | empty | ternary .shell.editor "nano" | quote }}
