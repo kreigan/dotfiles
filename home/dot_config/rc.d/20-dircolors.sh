@@ -1,5 +1,5 @@
-if [[ -f $HOME/.dir_colors ]]; then
-  eval "$(dircolors -b $HOME/.dir_colors)"
+if [[ -f $XDG_CONFIG_HOME/dircolors/theme ]]; then
+  eval "$(dircolors -b $XDG_CONFIG_HOME/dircolors/theme)"
 else
   eval "$(dircolors -b)"
 fi

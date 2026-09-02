@@ -8,6 +8,6 @@ managed by [tunneller](https://github.com/kreigan/tunneller).
 
 | | | |
 |-|-|-|
-| **Output file** | `~/.config/tunneller/compose.yaml` | |
+| **Output file** | `$XDG_CONFIG_HOME/tunneller/compose.yaml` | |
 | **Data section** | `endpoints`, `tunnels`, `gateways` | |
 | **Drop-in folder** | - | |

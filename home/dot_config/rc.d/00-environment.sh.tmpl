@@ -1,2 +1,11 @@
+# Set XDG Base Directories
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
 export PAGER={{ lookPath .shell.pager | empty | ternary .shell.pager "less" | quote }}
 export EDITOR={{ lookPath .shell.editor | empty | ternary .shell.editor "nano" | quote }}
+
+# PostgreSQL service file location
+export PGSERVICEFILE="${XDG_CONFIG_HOME}/postgres/pg_service.conf"

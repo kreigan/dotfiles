@@ -16,7 +16,7 @@ chezmoi init --apply
 
 | File | Configuration method | Description | |
 |------|----------------------|-------------|-|
-| `~/.config/pgcli/config` | data, drop-in files | `pgcli`'s [configuration](https://www.pgcli.com/config) | [docs](docs/pgcli.md) |
-| `~/.config/tunneller/compose.yaml` | data | Docker Compose file for SSH tunnels managed by [tunneller](https://github.com/kreigan/tunneller) | [docs](docs/tunneller.md) |
-| `~/.pg_service.conf` | data | PostgreSQL [connection service file](https://www.postgresql.org/docs/current/libpq-pgservice.html) | [docs](docs/pg_service_conf.md) |
+| `$XDG_CONFIG_HOME/pgcli/config` | data, drop-in files | `pgcli`'s [configuration](https://www.pgcli.com/config) | [docs](docs/pgcli.md) |
+| `$XDG_CONFIG_HOME/tunneller/compose.yaml` | data | Docker Compose file for SSH tunnels managed by [tunneller](https://github.com/kreigan/tunneller) | [docs](docs/tunneller.md) |
+| `$XDG_CONFIG_HOME/postgres/pg_service.conf` | data | PostgreSQL [connection service file](https://www.postgresql.org/docs/current/libpq-pgservice.html) | [docs](docs/pg_service_conf.md) |
 | `~/.ssh/config` | data, drop-in files | SSH client configuration | [docs](docs/ssh_config.md) |

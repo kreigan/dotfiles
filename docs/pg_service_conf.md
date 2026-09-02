@@ -7,6 +7,6 @@ file using the configured [services](./services.md) of type `db:postgresql`.
 
 | | | |
 |-|-|-|
-| **Output file** | `~/.pg_service.conf` | |
+| **Output file** | `$XDG_CONFIG_HOME/postgres/pg_service.conf` | |
 | **Data section** | `services`, `endpoints`, `tunnels` | |
 | **Drop-in folder** | - | |

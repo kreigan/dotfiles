@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-{{ $rcdir := joinPath .chezmoi.homeDir ".config" "rc.d" -}}
+{{ $rcdir := joinPath (coalesce (env "XDG_CONFIG_HOME") "$HOME/.config") "rc.d" -}}
 export RCDIR="${RCDIR:-{{ $rcdir }}}"
 
 # Load common shell scripts from $RCDIR
