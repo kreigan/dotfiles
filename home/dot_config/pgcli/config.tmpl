@@ -1,4 +1,6 @@
-{{- $pgcliConfig := get . "pgcli" | default dict -}}
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{ $pgcliConfig := get . "pgcli" | default dict -}}
 
 {{- if (get $pgcliConfig "main") -}}
 [main]
@@ -15,9 +17,9 @@
 {{ $pgcliConfig.data_formats | toToml }}
 {{ end -}}
 
-#####################
-##  NAMED QUERIES  ##
-#####################
+# ┌─────────────────┐
+# │  NAMED QUERIES  │
+# └─────────────────┘
 
 [named queries]
 
@@ -26,7 +28,7 @@
 {{- $queryName := trimSuffix ".sql" (base .) -}}
 {{- $queryPath := joinPath $destDir . }}
 
-####  {{ . }}  ####
+# ───  {{ . }}  ───
 
 {{ $queryName }} = '''{{ include $queryPath -}}'''
 {{- end }}

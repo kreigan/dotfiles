@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 # Update LINES and COLUMNS after each command if the window size has changed
 shopt -s checkwinsize
 

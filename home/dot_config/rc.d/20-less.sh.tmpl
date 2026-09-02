@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 export LESS="\{{ .shell.less_options | join " \\\n" | nindent 2 }}"
 
 export LESSHISTSIZE=1000

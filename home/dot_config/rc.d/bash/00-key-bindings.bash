@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 # Enable incremental history search with up/down arrows
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'

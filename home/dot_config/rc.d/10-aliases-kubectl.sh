@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 # Borrowed from https://github.com/ohmybash/oh-my-bash with some modifications
 
 # This command is used a LOT both below and in daily life

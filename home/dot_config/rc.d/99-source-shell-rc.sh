@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 if [ -n "$BASH_VERSION" ]; then
   currentShell="bash"
 elif [ -n "$ZSH_VERSION" ]; then

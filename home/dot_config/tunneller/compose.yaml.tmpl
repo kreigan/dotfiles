@@ -50,6 +50,8 @@
 {{- end -}}
 
 ---
+{{ template "managed_by_chezmoi.tmpl" }}
+
 services: {{- if not $gatewayTunnels }} {} {{- end -}}
 
 {{- $tunnellerSettings := get . "tunneller" | default dict -}}

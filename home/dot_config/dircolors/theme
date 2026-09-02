@@ -1,3 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
 # vim:ft=dircolors
 
 COLOR tty
@@ -47,9 +49,9 @@ TERM xterm-88color
 TERM xterm-256color
 TERM xterm-kitty
 
-#+-----------------+
-#+ Global Defaults +
-#+-----------------+
+# ┌───────────────────┐
+# │  Global Defaults  │
+# └───────────────────┘
 
 NORMAL                  00
 RESET                   0
@@ -78,11 +80,11 @@ STICKY_OTHER_WRITABLE   01;37;44
 OTHER_WRITABLE          01;04;34
 STICKY                  04;37;44
 
-#+-------------------+
-#+ Extension Pattern +
-#+-------------------+
+# ┌─────────────────────┐
+# │  Extension Pattern  │
+# └─────────────────────┘
 
-#+--- Archives ---+
+# ────  Archives  ────
 .7z              1;38;5;136
 .ace             1;38;5;136
 .alz             1;38;5;136
@@ -127,7 +129,7 @@ STICKY                  04;37;44
 .zoo             1;38;5;136
 .zst             1;38;5;136
 
-#+--- Documents ---+
+# ────  Documents  ────
 .doc             1;38;5;63
 .docx            1;38;5;63
 .dot             1;38;5;160
@@ -145,7 +147,7 @@ STICKY                  04;37;44
 .xls             1;38;5;28
 .xlsx            1;38;5;28
 
-#+--- Executables ---+
+# ────  Executables  ────
 .app             1;36
 .bat             1;36
 .btm             1;36
@@ -154,7 +156,7 @@ STICKY                  04;37;44
 .exe             1;36
 .reg             1;36
 
-#+--- Ignores ---+
+# ────  Ignores  ────
 *~      02;23
 .bak    02;23
 .BAK    02;23
@@ -167,7 +169,7 @@ STICKY                  04;37;44
 .swo    02;23
 .swp    02;23
 
-#+--- Code ---+
+# ────  Code  ────
 .c               38;5;146
 .c++             38;5;25
 .cc              38;5;25
@@ -213,7 +215,7 @@ STICKY                  04;37;44
 .ts              38;5;68
 .vim             38;5;35
 
-#+--- Shell ---+
+# ────  Shell  ────
 .awk             38;5;113
 .bash            38;5;113
 .csh             38;5;113
@@ -223,7 +225,7 @@ STICKY                  04;37;44
 .sh              38;5;113
 .zsh             38;5;113
 
-#+--- Markup/Documentation and Configuration ---+
+# ────  Markup/Documentation and Configuration  ────
 .htm             38;5;143
 .html            38;5;143
 .rst             38;5;143
