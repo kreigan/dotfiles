@@ -1,0 +1,22 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[➜](bold red)'
+
+[kubernetes]
+symbol = '⎈'
+format = '[$symbol $context]($style) in '
+disabled = false
+
+[time]
+disabled = false
+
+[cmd_duration]
+disabled = false
