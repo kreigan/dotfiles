@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "windows" }}
+
+# ╔═══════════════════════════╗
+# ║  IGNORE LINUX-ONLY FILES  ║
+# ╚═══════════════════════════╝
+
+.config/dircolors
+.config/rc.d
+.config/vim
+.local
+.bash*
+.zsh*
+
+{{- else }}
+
+# ╔═════════════════════════════╗
+# ║  IGNORE WINDOWS-ONLY FILES  ║
+# ╚═════════════════════════════╝
+
+
+
+{{- end -}}
