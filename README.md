@@ -16,7 +16,14 @@ chezmoi init --apply
 
 | File | Configuration method | Description | |
 |------|----------------------|-------------|-|
+| `$XDG_CONFIG_HOME/dircolors/theme` | - | [`dircolors`](https://dircolors.com) theme by [harishnkr](https://github.com/harishnkr/TermRainbow) | |
 | `$XDG_CONFIG_HOME/pgcli/config` | data, drop-in files | `pgcli`'s [configuration](https://www.pgcli.com/config) | [docs](docs/pgcli.md) |
-| `$XDG_CONFIG_HOME/tunneller/compose.yaml` | data | Docker Compose file for SSH tunnels managed by [tunneller](https://github.com/kreigan/tunneller) | [docs](docs/tunneller.md) |
 | `$XDG_CONFIG_HOME/postgres/pg_service.conf` | data | PostgreSQL [connection service file](https://www.postgresql.org/docs/current/libpq-pgservice.html) | [docs](docs/pg_service_conf.md) |
+| `$XDG_CONFIG_HOME/rc.d/*` | data, drop-in files | Shell scripts sourced by the user's shell | [docs](docs/shellrc.md) |
+| `$XDG_CONFIG_HOME/tunneller/compose.yaml` | data | Docker Compose file for SSH tunnels managed by [tunneller](https://github.com/kreigan/tunneller) | [docs](docs/tunneller.md) |
+| `$XDG_CONFIG_HOME/vim/vimrc` | - | Vim configuration file | |
+| `$XDG_CONFIG_HOME/starship.toml` | - | [Starship](https://starship.rs) configuration file | [docs](https://starship.rs/config/) |
 | `~/.ssh/config` | data, drop-in files | SSH client configuration | [docs](docs/ssh_config.md) |
+| `~/bash_profile` | - | | |
+| `~/bashrc` | - | | |
+| `~/zshrc` | - | | |
