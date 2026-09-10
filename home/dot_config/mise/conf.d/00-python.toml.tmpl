@@ -1,0 +1,13 @@
+# chezmoi:template:left-delimiter="% [[" right-delimiter="]]"
+% [[ template "managed_by_chezmoi.tmpl" ]]
+
+[tools]
+python = % [[ get . "globalPythonVersion" | default "latest" | quote ]]
+
+[env]
+_.python.venv = { path = "% [[ env "XDG_DATA_HOME" | default "~/.local/share" ]]/global-venv", create = true }
+UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
+
+[settings]
+python.uv_venv_auto = "source"
+idiomatic_version_file_enable_tools = ["python"]

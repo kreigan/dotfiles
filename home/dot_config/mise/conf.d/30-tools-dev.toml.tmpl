@@ -1,0 +1,25 @@
+{{- if get . "installDevTools" | default false -}}
+{{ template "managed_by_chezmoi.tmpl" }}
+
+[tools]
+act = "latest"
+
+# Ansible
+ansible = "latest"
+ansible-core = "latest"
+"pipx:ansible-lint" = "latest"
+
+# Golang
+golangci-lint = "latest"
+golangci-lint-langserver = "latest"
+goreleaser = "latest"
+
+# Python
+pdm = "latest"
+"pipx:pyright" = "latest"
+ruff = "latest"
+
+# Other
+markdownlint-cli2 = "latest"
+shellcheck = "latest"
+{{- end }}

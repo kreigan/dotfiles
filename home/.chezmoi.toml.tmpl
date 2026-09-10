@@ -1,0 +1,4 @@
+{{- $installDevTools := promptBoolOnce . "installDevTools" "Install development tools? [y/N]" false -}}
+
+[data]
+installDevTools = {{ $installDevTools }}

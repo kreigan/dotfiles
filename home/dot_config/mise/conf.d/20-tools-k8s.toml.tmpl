@@ -1,0 +1,9 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+[tools]
+azure = "latest"
+azure-kubelogin = "latest"
+helm = "latest"
+helm-diff = "latest"
+helm-ls = "latest"
+kubectl = {{ dig "tools" "kubectl" "latest" . | quote -}}
