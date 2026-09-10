@@ -1,13 +1,13 @@
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-{{ $rcdir := joinPath (coalesce (env "XDG_CONFIG_HOME") "$HOME/.config") "rc.d" -}}
+{{- $rcdir := joinPath (coalesce (env "XDG_CONFIG_HOME") "$HOME/.config") "rc.d" -}}
 export RCDIR="${RCDIR:-{{ $rcdir }}}"
 
 # Load common shell scripts from $RCDIR
+# Non-interactive sesssions source only .sh files that start with 0 or 9
 if test -d "$RCDIR"; then
   for rcfile in "$RCDIR"/*.sh; do
-    test -f "$rcfile" && test -r "$rcfile" && . "$rcfile"
+    test -f "$rcfile" && test -r "$rcfile" || continue
+    [[ $- != *i* && ${rcfile##*/} != [09]?-*.sh ]] && continue
+    . "$rcfile"
   done
   unset rcfile
 fi

@@ -10,6 +10,7 @@
 
 `~/.bashrc`/`~/.zshrc` sources `*.sh` files in `$XDG_CONFIG_HOME/rc.d` in alphabetical
 order. This means that these files must be compatible with both `bash` and `zsh`.
+Files starting with 00-09 and 90-99 are also sourced in non-interactive sessions.
 
 The last file, `rc.d/99-source-shell-rc.sh` determines the current shell (bash or zsh)
 and sources `rc.d/bash/*.bash` or `rc.d/zsh/*.zsh` accordingly. When placing your custom
