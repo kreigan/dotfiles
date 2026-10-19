@@ -1,0 +1,24 @@
+[git]
+ignore = [
+  ".venv",
+  "coverage/",
+  "node_modules/"
+]
+
+[git.config.core]
+editor = "code --wait"
+
+[git.config.http]
+postBuffer = 1_048_576_000
+
+[git.config.rebase]
+autoSquash = true
+
+[git.config.gpg]
+format = "ssh"
+
+[git.config.commit]
+gpgsign = false
+
+[git.config.init]
+defaultBranch = "main"

@@ -1,4 +1,13 @@
-{{- $installDevTools := promptBoolOnce . "installDevTools" "Install development tools? [y/N]" false -}}
+{{- $gitUserConfig := dig "git" "config" "user" dict . -}}
+
+{{- $gitName := promptStringOnce $gitUserConfig "name" "Git name for commits" -}}
+{{- $gitEmail := promptStringOnce $gitUserConfig "email" "Git email address" -}}
+
+{{- $installDevTools := promptBoolOnce . "installDevTools" "Install development tools [y/N]" false -}}
 
 [data]
 installDevTools = {{ $installDevTools }}
+
+[data.git.config.user]
+name = {{ $gitName | quote }}
+email = {{ $gitEmail | quote }}

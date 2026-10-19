@@ -1,0 +1,15 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{- if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{-   if not (dig "core" "sshCommand" "" .git.config) -}}
+{{-     $_ := setValueAtPath "git.config.core.sshCommand" "/mnt/c/Windows/System32/OpenSSH/ssh.exe" . -}}
+{{-   end -}}
+{{-   if not (dig "gpg \"ssh\"" "program" "" .git.config) -}}
+{{-     $_ := setValueAtPath "git.config.gpg \"ssh\".program" "/mnt/c/Program Files/1Password/app/8/op-ssh-sign-wsl" . -}}
+{{-   end -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   if not (dig "gpg \"ssh\"" "program" "" .git.config) -}}
+{{-     $_ := setValueAtPath "git.config.gpg \"ssh\".program" "C:/Program Files/1Password/app/8/op-ssh-sign.exe" . -}}
+{{-   end -}}
+{{- end }}
+{{ .git.config | toIni -}}

@@ -1,0 +1,5 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{ range .git.ignore -}}
+{{ . }}
+{{ end -}}
