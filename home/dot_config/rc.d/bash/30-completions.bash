@@ -14,3 +14,6 @@ if [[ $- == *i* ]]; then
   bind 'set colored-stats on'          # Highlight the common part when focused on a completion
   bind 'set visible-stats on'          # Show file type indicators when completing file names (like ls -F)
 fi
+
+# Add kubectl alias completion
+complete -o default -F __start_kubectl k
