@@ -1,0 +1,7 @@
+[python.global_venv]
+modules = [
+  "pandas",
+  "psycopg>=3.0.0",
+  "requests",
+  "urllib3"
+]

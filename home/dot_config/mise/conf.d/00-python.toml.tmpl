@@ -1,11 +1,14 @@
 # chezmoi:template:left-delimiter="% [[" right-delimiter="]]"
 % [[ template "managed_by_chezmoi.tmpl" ]]
+% [[- $pythonConfig := dig "python" "global_venv" dict . ]]
 
 [tools]
-python = % [[ get . "globalPythonVersion" | default "latest" | quote ]]
+python = % [[ get $pythonConfig "python_version" | default "latest" | quote ]]
 
 [env]
-_.python.venv = { path = "% [[ env "XDG_DATA_HOME" | default "~/.local/share" ]]/global-venv", create = true }
+% [[- $vendDir := get $pythonConfig "path" | default (env "XDG_DATA_HOME" | default "~/.local/share") ]]
+% [[- $venvName := get $pythonConfig "name" | default "global-venv" ]]
+_.python.venv = { path = "% [[ joinPath $vendDir $venvName ]]", create = true }
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 [settings]

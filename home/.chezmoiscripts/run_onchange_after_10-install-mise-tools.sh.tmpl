@@ -1,0 +1,16 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/bash
+# Re-runs when the mise drop-ins or the data that drives them change.
+{{- range glob (joinPath .chezmoi.sourceDir "dot_config/mise/conf.d/*") }}
+# {{ base . }}: {{ include . | sha256sum }}
+{{- end }}
+# data: {{ dict "tools" (get . "tools") "installDevTools" (get . "installDevTools") "python_version" (dig "python" "global_venv" "python_version" "" .) | toJson | sha256sum }}
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "mise is not installed, skipping tool installation" >&2
+  exit 0
+fi
+
+# Run from $HOME so project-local mise configs are not picked up
+cd "$HOME" && mise install
+{{- end }}

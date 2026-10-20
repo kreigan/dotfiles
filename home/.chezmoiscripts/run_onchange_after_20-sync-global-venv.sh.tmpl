@@ -1,0 +1,11 @@
+{{- $modules := dig "python" "global_venv" "modules" list . -}}
+{{ if and $modules (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+
+tempReqFile=$(mktemp)
+trap 'rm -f "$tempReqFile"' EXIT
+cat <<EOT > "$tempReqFile"
+{{ $modules | join "\n" }}
+EOT
+cd "$HOME" && mise exec -- uv pip sync "$tempReqFile"
+{{ end -}}
