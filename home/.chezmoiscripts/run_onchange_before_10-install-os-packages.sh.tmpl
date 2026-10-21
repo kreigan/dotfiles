@@ -1,0 +1,10 @@
+{{- $packages := dig "packages" "pacman" list . -}}
+{{- if and (ne .chezmoi.os "windows") $packages -}}
+#!/bin/bash
+
+cat <<EOF | sudo pacman -Sy --noconfirm -
+{{- range $packages }}
+{{ . }}
+{{- end }}
+EOF
+{{- end }}

@@ -1,0 +1,17 @@
+[packages]
+pacman = [
+  "bash-completion",
+  "dos2unix",
+  "fd",
+  "moor",
+  "pgcli",
+  "pgformatter",
+  "postgresql-docs",
+  "postgresql-libs",
+  "ripgrep",
+  "starship",
+  "tree",
+  "zsh-autosuggestions",
+  "zsh-completions",
+  "zsh-syntax-highlighting"
+]

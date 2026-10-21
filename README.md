@@ -1,28 +1,23 @@
 # chezmoi
 
 Use `chezmoi` [templates](https://www.chezmoi.io/user-guide/templating/) to manage multiple files using data.
-
-Templated files are rendered by `chezmoi` based on configured data. See [docs](https://www.chezmoi.io/user-guide/templating/#testing-templates) for more information how `chezmoi` data works.
-
-## Prerequisites
-
-The machine is expected to be bootstrapped (e.g. with Ansible) **before** running `chezmoi init`.
-
-Required:
-
-- `chezmoi` and `git` to fetch and apply the repository.
-- `mise` and `uv` for the [global Python virtual environment](docs/python.md#automatic-package-sync). The sync script runs `uv` through `mise exec` and fails without them, unless `python.global_venv.modules` is empty.
-
-Fallbacks:
-
-- Without `mise`, the [tool installation script](docs/mise.md#automatic-tool-installation) is skipped.
-- Other tools (starship, Zsh plugins, `docker`, etc.) are only used by the configuration at runtime, so missing ones do not break `chezmoi apply`.
+Templated files are rendered by `chezmoi` based on configured data.
 
 ## Usage
 
+1. Upgrade the system and install the required packages:
+
 ```sh
-chezmoi init --apply
+sudo pacman -Syu --noconfirm chezmoi curl git mise uv zsh
 ```
+
+2. Initialize `chezmoi`:
+
+```sh
+chezmoi init --apply kreigan
+```
+
+It is highly recommended to fork the dotfiles repository and use your own fork when initializing `chezmoi`.
 
 ## Supported files
 
