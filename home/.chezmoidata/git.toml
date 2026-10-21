@@ -5,20 +5,23 @@ ignore = [
   "node_modules/"
 ]
 
+[git.config.commit]
+gpgsign = false
+
 [git.config.core]
 editor = "code --wait"
-
-[git.config.http]
-postBuffer = 1_048_576_000
-
-[git.config.rebase]
-autoSquash = true
 
 [git.config.gpg]
 format = "ssh"
 
-[git.config.commit]
-gpgsign = false
+[git.config.http]
+postBuffer = 1_048_576_000
 
 [git.config.init]
 defaultBranch = "main"
+
+[git.config.pull]
+rebase = true
+
+[git.config.rebase]
+autoSquash = true
