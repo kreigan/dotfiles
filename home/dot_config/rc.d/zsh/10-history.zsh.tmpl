@@ -4,6 +4,7 @@ HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 
 # Unlimited history size
 HISTSIZE=$((0x7FFF7FFF))
+SAVEHIST=$((0x7FFF7FFF))
 
 # Ignore common service commands
 HISTORY_IGNORE={{ join "|" (.shell.history.ignore) | quote }}
