@@ -15,3 +15,24 @@ pacman = [
   "zsh-completions",
   "zsh-syntax-highlighting"
 ]
+
+[packages.mise]
+act = "latest"
+
+# Ansible
+ansible = "latest"
+"pipx:ansible-lint" = "latest"
+
+# Golang
+golangci-lint = "latest"
+golangci-lint-langserver = "latest"
+goreleaser = "latest"
+
+# Python
+pdm = "latest"
+"pipx:pyright" = "latest"
+ruff = "latest"
+
+# Other
+markdownlint-cli2 = "latest"
+shellcheck = "latest"
