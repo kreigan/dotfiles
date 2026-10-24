@@ -18,17 +18,17 @@ history.ignore = [
   "fg"
 ]
 less_options = [
-  "--autosave=/",
-	"--chop-long-lines",
-	"--clear-screen",
-	"--ignore-case",
-	"--jump-target=10",
-	"--LONG-PROMPT",
-	"--RAW-CONTROL-CHARS",
-	"--shift=5",
-	"--status-column",
-	"--tabs=2",
-	"--tilde",
+  "--autosave=/",         # Save searches to history as you make them.
+  "--chop-long-lines",    # Keep long lines unwrapped; scroll sideways to read them.
+  "--clear-screen",
+  "--ignore-case",
+  "--jump-target=10",     # Put a search result 10 lines from the top, leaving context above it.
+  "--LONG-PROMPT",        # Show the file name and position in the prompt.
+  "--RAW-CONTROL-CHARS",  # Let colors in command output show through.
+  "--shift=5",            # Move sideways 5 columns at a time.
+  "--status-column",      # Show a marker strip at the left of the text.
+  "--tabs=2",             # Set tabs every 2 columns.
+  "--tilde",              # Leave the area below the file blank instead of showing ~.
   "--use-color",
 ]
 
