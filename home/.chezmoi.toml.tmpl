@@ -11,3 +11,8 @@ installDevTools = {{ $installDevTools }}
 [data.git.config.user]
 name = {{ $gitName | quote }}
 email = {{ $gitEmail | quote }}
+
+{{ if lookPath "code" -}}
+[data.git.config.core]
+editor = "code --wait"
+{{ end }}

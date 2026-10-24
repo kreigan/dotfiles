@@ -8,9 +8,6 @@ ignore = [
 [git.config.commit]
 gpgsign = false
 
-[git.config.core]
-editor = "code --wait"
-
 [git.config.gpg]
 format = "ssh"
 
