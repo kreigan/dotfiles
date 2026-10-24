@@ -1,0 +1,25 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{- $configuredHosts := dig "ssh" "hosts" dict . | pruneEmptyDicts -}}
+{{- $hostNames := $configuredHosts | keys | uniq | sortAlpha -}}
+{{- $hostsToRender := list -}}
+{{- range $hostNames -}}
+  {{- $host := get $configuredHosts . -}}
+  {{- if not $host -}}
+    {{- continue -}}
+  {{- end }}
+  {{- $_ := set $host "name" . -}}
+  {{- $hostsToRender = append $hostsToRender $host -}}
+{{- end -}}
+
+{{- if $hostsToRender -}}
+
+{{- range $hostsToRender }}
+{{ $host := . }}
+Host {{ $host.name }}
+  {{- range keys (omit $host "name") | sortAlpha }}
+  {{ . }} = {{ get $host . }} 
+  {{- end -}}
+{{- end -}}
+
+{{- end -}}

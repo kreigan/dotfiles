@@ -1,0 +1,35 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{- $groups := dig "ssh" "groups" dict . | pruneEmptyDicts -}}
+
+{{- range $groups | keys | sortAlpha -}}
+  {{- $groupName := . -}}
+  {{- $group := get $groups $groupName -}}
+
+  {{- if not (get $group "hosts") -}}
+    {{- continue -}}
+  {{- end }}
+
+# ┌{{ repeat ((len $groupName | add 11) | int) "─" }}┐
+# │  GROUP: {{ $groupName | upper }}  │
+# └{{ repeat ((len $groupName | add 11) | int) "─" }}┘
+
+  {{- range keys $group.hosts | sortAlpha -}}
+    {{- $hostName := . -}}
+    {{- $host := get $group.hosts $hostName }}
+
+Host {{ $groupName -}}_{{ . }}
+    {{- range keys $host | sortAlpha }}
+  {{ . }} = {{ get $host . }} 
+    {{- end -}}
+  {{- end -}}
+
+{{- if get $group "options" }}
+
+Host {{ $groupName -}}_*
+    {{- range keys $group.options | sortAlpha }}
+  {{ . }} = {{ get $group.options . }} 
+    {{- end }}
+
+  {{- end -}}
+{{- end -}}
