@@ -5,9 +5,6 @@ ignore = [
   "node_modules/"
 ]
 
-[git.config.commit]
-gpgsign = false
-
 [git.config.gpg]
 format = "ssh"
 
