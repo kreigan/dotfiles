@@ -4,9 +4,9 @@
 
 | | | |
 |-|-|-|
-| **Output file** | `~/.ssh/config` | |
+| **Output file** | `~/.ssh/config`, `~/.ssh/config.d/00-hosts`, `~/.ssh/config.d/05-groups` | |
 | **Data section** | `ssh` | |
-| **Drop-in folder** | `~/.ssh/config.d/` | Raw SSH configuration files. Take precendence over the data configuration. |
+| **Drop-in folder** | `~/.ssh/config.d/` | Raw SSH configuration files. Are loaded in alphabetical order. |
 
 ## Data structure
 
@@ -41,7 +41,11 @@ The above configuration describes the following:
 - `prod_host1` is an alias for `prodhost1.com`
 - `prod_host2` is an alias for `prodhost2.com` with user `specialproduser`
 
-`chezmoi apply` will produce `~/.ssh/config` that looks like this:
+`chezmoi apply` will produce two files in `~/.ssh/config.d`: `00-hosts` and `05-groups`.
+Groups, hosts and configuration keys are sorted alphabetically in the rendered files.
+Group default options always come last in the group.
+
+`~/.ssh/config.d/00-hosts`:
 
 ```
 Host anotherHost
@@ -51,10 +55,14 @@ Host anotherHost
 
 Host myHost
   HostName = myhost.com
+```
 
-###################
-##  GROUP: PROD  ##
-###################
+`~/.ssh/config.d/05-groups`:
+
+```
+# ┌───────────────┐
+# │  GROUP: PROD  │
+# └───────────────┘
 
 Host prod_host1
   HostName = prodhost1.com
