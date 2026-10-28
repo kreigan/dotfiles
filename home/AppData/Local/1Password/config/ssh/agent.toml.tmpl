@@ -1,0 +1,6 @@
+{{ template "managed_by_chezmoi.tmpl" }}
+
+{{ range dig "ssh" "1password" "ssh-keys" list . -}}
+[[ssh-keys]]
+{{ . | toToml }}
+{{ end -}}
