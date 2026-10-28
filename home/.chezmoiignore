@@ -6,6 +6,7 @@
 .config/rc.d
 .config/vim
 .local
+.ssh
 .bash*
 .zsh*
 
