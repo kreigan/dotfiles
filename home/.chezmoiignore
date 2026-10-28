@@ -9,7 +9,7 @@
 .bash*
 .zsh*
 
-{{- else }}
+{{- else if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 
 # Ignore Windows-only files
 
