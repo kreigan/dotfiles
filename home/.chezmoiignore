@@ -1,8 +1,6 @@
 {{- if eq .chezmoi.os "windows" }}
 
-# ╔═══════════════════════════╗
-# ║  IGNORE LINUX-ONLY FILES  ║
-# ╚═══════════════════════════╝
+# Ignore Linux-only files
 
 .config/dircolors
 .config/rc.d
@@ -13,9 +11,7 @@
 
 {{- else }}
 
-# ╔═════════════════════════════╗
-# ║  IGNORE WINDOWS-ONLY FILES  ║
-# ╚═════════════════════════════╝
+# Ignore Windows-only files
 
 
 
