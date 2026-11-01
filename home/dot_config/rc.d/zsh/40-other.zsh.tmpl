@@ -11,3 +11,6 @@ add-zsh-hook -Uz precmd reset_broken_terminal
 
 # If can't execute the directory, perform the cd command to that
 setopt AUTO_CD
+
+# Remove weird end of line mark (%)
+PROMPT_EOL_MARK=""
