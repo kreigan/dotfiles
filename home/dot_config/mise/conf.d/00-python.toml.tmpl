@@ -8,7 +8,7 @@ python = % [[ get $pythonConfig "python_version" | default "latest" | quote ]]
 [env]
 % [[- $vendDir := get $pythonConfig "path" | default (env "XDG_DATA_HOME" | default "~/.local/share") ]]
 % [[- $venvName := get $pythonConfig "name" | default "global-venv" ]]
-_.python.venv = { path = "% [[ joinPath $vendDir $venvName ]]", create = true }
+_.python.venv = { path = "% [[ joinPath $vendDir $venvName | replace "\\" "\\\\" ]]", create = true }
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
 
 [settings]
