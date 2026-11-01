@@ -17,9 +17,9 @@
 {{ $pgcliConfig.data_formats | toToml }}
 {{ end -}}
 
-# ┌─────────────────┐
-# │  NAMED QUERIES  │
-# └─────────────────┘
+# -------------
+# NAMED QUERIES  
+# -------------
 
 [named queries]
 
@@ -28,7 +28,7 @@
 {{- $queryName := trimSuffix ".sql" (base .) -}}
 {{- $queryPath := joinPath $destDir . }}
 
-# ───  {{ . }}  ───
+# ---  {{ . }}  ---
 
 {{ $queryName }} = '''{{ include $queryPath -}}'''
 {{- end }}

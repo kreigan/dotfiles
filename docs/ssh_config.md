@@ -60,9 +60,9 @@ Host myHost
 `~/.ssh/config.d/05-groups`:
 
 ```
-# ┌───────────────┐
-# │  GROUP: PROD  │
-# └───────────────┘
+# -----------
+# GROUP: PROD
+# -----------
 
 Host prod_host1
   HostName = prodhost1.com

@@ -10,9 +10,8 @@
     {{- continue -}}
   {{- end }}
 
-# ┌{{ repeat ((len $groupName | add 11) | int) "─" }}┐
-# │  GROUP: {{ $groupName | upper }}  │
-# └{{ repeat ((len $groupName | add 11) | int) "─" }}┘
+# {{ repeat ((len $groupName | add 7) | int) "-" }}
+# GROUP: {{ $groupName | upper }}
 
   {{- range keys $group.hosts | sortAlpha -}}
     {{- $hostName := . -}}

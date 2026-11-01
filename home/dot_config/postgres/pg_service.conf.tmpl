@@ -57,9 +57,8 @@ port={{ .endpoint.port }}
 {{- range $groupName := keys (omit $services "ungrouped") | sortAlpha -}}
 {{- $group := get $services $groupName -}}
 
-# ┌{{ repeat ((len $groupName | add 11) | int) "─" }}┐
-# │  GROUP: {{ $groupName | upper }}  │
-# └{{ repeat ((len $groupName | add 11) | int) "─" }}┘
+# {{ repeat ((len $groupName | add 7) | int) "-" }}
+# GROUP: {{ $groupName | upper }}
 
 {{ range $name := keys $group | sortAlpha -}}
 {{- with get $group $name -}}
