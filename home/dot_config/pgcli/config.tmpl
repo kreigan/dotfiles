@@ -4,18 +4,24 @@
 
 {{- if (get $pgcliConfig "main") -}}
 [main]
-{{ $pgcliConfig.main | toToml }}
+{{- range $k, $v := $pgcliConfig.main }}
+{{ $k }} = "{{ $v }}"
+{{- end -}}
 {{ end -}}
 
 {{- if (get $pgcliConfig "colors") -}}
 [colors]
-{{ $pgcliConfig.colors | toToml }}
+{{- range $k, $v := $pgcliConfig.colors }}
+{{ $k }} = "{{ $v }}"
+{{- end -}}
 {{ end -}}
 
 {{- if (get $pgcliConfig "data_formats") -}}
 [data_formats]
-{{ $pgcliConfig.data_formats | toToml }}
-{{ end -}}
+{{- range $k, $v := $pgcliConfig.data_formats }}
+{{ $k }} = "{{ $v }}"
+{{- end -}}
+{{ end }}
 
 # -------------
 # NAMED QUERIES  
