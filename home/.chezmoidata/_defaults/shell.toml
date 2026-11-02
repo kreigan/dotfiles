@@ -6,6 +6,8 @@ history.ignore = [
   "ls -*",
   "ll",
   "cd -",
+  "cd ..",
+  "cd ../..",
   "pwd",
   "exit",
   "date",
@@ -15,7 +17,11 @@ history.ignore = [
   "sudo su",
   "sudo su -",
   "bg",
-  "fg"
+  "fg",
+  "kgp",
+  "kgd",
+  "kgs",
+
 ]
 less_options = [
   "--autosave=/",         # Save searches to history as you make them.
