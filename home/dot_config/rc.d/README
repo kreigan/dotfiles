@@ -1,0 +1,10 @@
+Put here shell rc files, they are sourced by Bash and Zsh:
+
+1. Both shells source `*.sh` files in this directory (rc.d) in alphabetical order.
+2. Each shell sources `*.bash`/`*.zsh` files inside a corresponding rc.d subfolder.
+
+- Non-interactive shells only source files `0*` and `9*` (01-environment.sh, etc.)
+- Interactive shells source all files
+
+It is highly recommended to name user files with a number prefix to control order.
+The recommended index is anything between 10 and 89.
