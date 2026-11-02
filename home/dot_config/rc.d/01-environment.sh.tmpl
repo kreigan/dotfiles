@@ -9,5 +9,6 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export PAGER={{ lookPath .shell.pager | empty | ternary "less" .shell.pager | quote }}
 export EDITOR={{ lookPath .shell.editor | empty | ternary "nano" .shell.editor | quote }}
 
-# PostgreSQL service file location
-export PGSERVICEFILE="${XDG_CONFIG_HOME}/postgres/pg_service.conf"
+# Set PostgreSQL environment variables
+export PGSYSCONFDIR="${XDG_CONFIG_HOME}/postgres"
+export PGPASSFILE="$PGSYSCONFDIR/.pgpass"
