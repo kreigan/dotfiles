@@ -12,3 +12,4 @@ export EDITOR={{ lookPath .shell.editor | empty | ternary "nano" .shell.editor |
 # Set PostgreSQL environment variables
 export PGSYSCONFDIR="${XDG_CONFIG_HOME}/postgres"
 export PGPASSFILE="$PGSYSCONFDIR/.pgpass"
+export PGSERVICEFILE="$PGSYSCONFDIR/.pg_service.conf"
