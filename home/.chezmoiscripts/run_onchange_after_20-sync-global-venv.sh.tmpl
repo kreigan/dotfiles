@@ -1,5 +1,5 @@
 {{- $modules := dig "python" "global_venv" "modules" list . -}}
-{{ if and $modules (eq .chezmoi.os "linux") -}}
+{{ if and $modules (eq .chezmoi.os "linux") false -}}
 #!/bin/bash
 
 tempReqFile=$(mktemp)
