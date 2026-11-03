@@ -34,8 +34,8 @@ fi
 # Make completion case-insensitive
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# Use arrow keys to select completion
-zstyle ':completion:*' menu select
+# Use arrow keys to select completion when the list does not fit on screen
+zstyle ':completion:*' menu select=long
 
 # Highlight the common part when focused on a completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -45,3 +45,24 @@ zstyle ':completion:*:descriptions' format '[%d]'
 
 # Use menu completion after the second consecutive TAB
 setopt AUTO_MENU
+
+# Describe otherwise undocumented options that take one argument; %d is its description
+zstyle ':completion:*' auto-description 'specify: %d'
+
+# Try expansion, ordinary completion, spelling correction, then approximate matching
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+
+# Set the display format for completion descriptions and messages; %d is their text
+zstyle ':completion:*' format 'Completing %d'
+
+# Group matches by their tag name
+zstyle ':completion:*' group-name ''
+
+# Include more detailed descriptions in completion listings where available
+zstyle ':completion:*' verbose true
+
+# Show a prompt after each screenful of a long completion list
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+
+# Show the current selection position while menu selection is active
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
