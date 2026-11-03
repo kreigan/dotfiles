@@ -3,6 +3,7 @@ pacman = [
   "bash-completion",
   "dos2unix",
   "fd",
+  "fzf",
   "mc",
   "moor",
   "pgcli",
